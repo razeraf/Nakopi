@@ -1184,7 +1184,7 @@ export default function Page() {
               </p>
 
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
-                <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                <a href="https://wa.me/6285175395261" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                   <button className="btn-subscribe font-label" style={{ padding: '20px 60px', cursor: 'pointer' }}>
                     CHAT SEKARANG
                   </button>
