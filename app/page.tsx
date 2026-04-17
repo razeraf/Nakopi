@@ -1184,8 +1184,20 @@ export default function Page() {
               </p>
 
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
-                <a href="https://wa.me/6285175395261" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                  <button className="btn-subscribe font-label" style={{ padding: '20px 60px', cursor: 'pointer' }}>
+                <a 
+                  href="https://api.whatsapp.com/send?phone=6285175395261&text=Halo%20Nobi!%20Saya%20mau%20tanya%20stok%20biji%20kopi%20hari%20ini%20dong%20☕" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ textDecoration: 'none' }}
+                >
+                  <button 
+                    className="btn-subscribe font-label" 
+                    style={{ 
+                      padding: '20px 60px', 
+                      cursor: 'pointer',
+                      transition: '0.3s' // Tambahin biar halus pas di-klik
+                    }}
+                  >
                     CHAT SEKARANG
                   </button>
                 </a>
