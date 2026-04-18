@@ -116,7 +116,7 @@ const ethos = [
     num: "05",
     title: "Tempat Ngopi Enak Purwokerto",
     tag: "COZY SPACE",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/hdtempat.jpeg",
+    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/hdtempat.jpg",
     body: "Tempat yang nyaman untuk menikmati kopi dengan suasana santai, didukung pilihan menu kopi dan non-kopi yang beragam serta cocok untuk bersantai maupun bekerja.",
   },
 ];
