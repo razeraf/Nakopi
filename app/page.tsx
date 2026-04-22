@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useEffect, type CSSProperties } from "react";
+import { useState, useEffect, type CSSProperties, FormEvent } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+// ─── Supabase Client ───────────────────────────────────────────────────────────
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
 
 // ─── Color tokens ───────────────────────────────────────────────────────────
 const colors = {
@@ -129,6 +136,8 @@ export default function Page() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [activeEthos, setActiveEthos] = useState(ethos[0]);
+  const [formData, setFormData] = useState({ name: '', message: '' });
+  const [loading, setLoading] = useState(false);
 
   // ─── SCROLL SPY LOGIC ───
   useEffect(() => {
@@ -214,6 +223,25 @@ export default function Page() {
       };
     }
   };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setLoading(true);
+  
+  const { error } = await supabase
+    .from('suggestions')
+    .insert([
+      { name: formData.name, message: formData.message }
+    ]);
+
+  if (error) {
+    alert("Gagal kirim saran: " + error.message);
+  } else {
+    alert("Saran terkirim! Matur nuwun Kak 😊");
+    setFormData({ name: '', message: '' });
+  }
+  setLoading(false);
+};
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev - 1 + coffees.length) % coffees.length);
@@ -1212,37 +1240,79 @@ export default function Page() {
       </main>
 
       {/* ── Footer ── */}
-      <footer className="footer" style={{ padding: '60px 0 30px 0', background: '#f2ede6' }}>
-        <div className="footer-inner full-desktop-wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '80px' }}>
-            <div className="footer-brand font-headline" style={{ margin: '0', fontSize: '1.5rem', fontWeight: 'bold', color: '#271310', lineHeight: '1.2' }}>
-              Alamat
-            </div>
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Nakopi+Roastery+Purwokerto"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-tagline font-body"
-              style={{
-                margin: '4px 0 0 0',
-                textDecoration: 'none',
-                color: 'rgba(39,19,16,0.6)',
-                maxWidth: '400px',
-                lineHeight: '1.4',
-                display: 'block'
-              }}
-            >
-              Jl. KH Agus Salim (selatan Salsa Snack, sebelah Jet Laundry), Karangpucung, Purwokerto 53142
-            </a>
-          </div>
+<footer className="footer" style={{ padding: '60px 0 30px 0', background: '#f2ede6' }}>
+  <div className="footer-inner full-desktop-wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+    
+    {/* Alamat */}
+    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '80px', flex: 1 }}>
+      <div className="footer-brand font-headline" style={{ margin: '0', fontSize: '1.5rem', fontWeight: 'bold', color: '#271310', lineHeight: '1.2' }}>
+        Alamat
+      </div>
+      <a
+        href="https://www.google.com/maps/search/?api=1&query=Nakopi+Roastery+Purwokerto"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="footer-tagline font-body"
+        style={{
+          margin: '4px 0 20px 0',
+          textDecoration: 'none',
+          color: 'rgba(39,19,16,0.6)',
+          maxWidth: '300px',
+          lineHeight: '1.4',
+          display: 'block'
+        }}
+      >
+        Jl. KH Agus Salim (selatan Salsa Snack, sebelah Jet Laundry), Karangpucung, Purwokerto 53142
+      </a>
+    </div>
 
-          <div className="footer-social" style={{ textAlign: 'right', paddingRight: '80px' }}>
-            <div className="footer-copy font-label" style={{ color: 'rgba(39,19,16,0.5)', fontSize: '0.8rem', letterSpacing: '0.1em' }}>
-              © ARKADIA.
-            </div>
-          </div>
-        </div>
-      </footer>
+    {/* KOTAK SARAN (Baru) */}
+    <div style={{ flex: 1, padding: '0 40px' }}>
+      <div className="font-headline" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#271310', marginBottom: '15px' }}>
+        Saran & Masukan
+      </div>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <input 
+          type="text" 
+          placeholder="Nama Kakak"
+          value={formData.name}
+          onChange={(e) => setFormData({...formData, name: e.target.value})}
+          required
+          style={{ padding: '8px', borderRadius: '4px', border: '1px solid rgba(39,19,16,0.2)', background: 'white' }}
+        />
+        <textarea 
+          placeholder="Tulis saran di sini..."
+          value={formData.message}
+          onChange={(e) => setFormData({...formData, message: e.target.value})}
+          required
+          style={{ padding: '8px', borderRadius: '4px', border: '1px solid rgba(39,19,16,0.2)', background: 'white', minHeight: '80px', resize: 'none' }}
+        />
+        <button 
+          type="submit" 
+          disabled={loading}
+          style={{ 
+            padding: '10px', 
+            background: '#271310', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '4px', 
+            cursor: 'pointer',
+            fontWeight: 'bold'
+          }}
+        >
+          {loading ? 'Mengirim...' : 'Kirim Saran'}
+        </button>
+      </form>
+    </div>
+
+    {/* Social & Copyright */}
+    <div className="footer-social" style={{ textAlign: 'right', paddingRight: '80px', flex: 1 }}>
+      <div className="footer-copy font-label" style={{ color: 'rgba(39,19,16,0.5)', fontSize: '0.8rem', letterSpacing: '0.1em' }}>
+        © ARKADIA.
+      </div>
+    </div>
+  </div>
+</footer>
     </>
   );
 }
