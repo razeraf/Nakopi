@@ -36,124 +36,50 @@ const colors = {
   onTertiaryContainer: "#79a04d",
 };
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-const coffees = [
-  {
-    name: "Arabika",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/Arabika.jpg",
-    link: "https://pesan.kopipurwokerto.com/",
-    desc: "Menawarkan profil rasa yang kaya dengan aroma bunga dan buah-buahan. Memiliki tingkat keasaman yang menyegarkan namun tetap lembut di lidah.",
-    description: "Menawarkan profil rasa yang kaya dengan aroma bunga dan buah-buahan. Memiliki tingkat keasaman yang menyegarkan namun tetap lembut di lidah.",
-    origin: "Aromatic & Complex",
-    tag: "Single Origin",
-    offset: true,
-  },
-  {
-    name: "Excelsa",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/Excelsa.jpg",
-    link: "https://pesan.kopipurwokerto.com/",
-    desc: "Varian langka dengan perpaduan rasa yang unik; kombinasi antara rasa buah yang tajam (tart) dengan kedalaman rasa kacang-kacangan yang smoky.",
-    description: "Varian langka dengan perpaduan rasa yang unik; kombinasi antara rasa buah yang tajam (tart) dengan kedalaman rasa kacang-kacangan yang smoky.",
-    origin: "Unique & Exotic",
-    tag: "Aromatic",
-    offset: false,
-  },
-  {
-    name: "Robusta",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/Robusta.png",
-    link: "https://pesan.kopipurwokerto.com/",
-    desc: "Memiliki body yang tebal dengan sentuhan rasa cokelat hitam yang kuat dan tingkat keasaman yang sangat rendah. Cocok untuk Anda yang menyukai kopi dengan tendangan kafein tinggi.",
-    description: "Memiliki body yang tebal dengan sentuhan rasa cokelat hitam yang kuat dan tingkat keasaman yang sangat rendah. Cocok untuk Anda yang menyukai kopi dengan tendangan kafein tinggi.",
-    origin: "Bold & Earthy",
-    tag: "Bold Roast",
-    offset: true,
-  },
-  {
-    name: "House Blend",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/belnd.jpg",
-    link: "https://pesan.kopipurwokerto.com/",
-    desc: "Racikan rahasia yang menyeimbangkan karakter sweetness Arabika dan strength Robusta. Sangat serbaguna, enak dinikmati sebagai kopi hitam maupun dengan susu.",
-    description: "Racikan rahasia yang menyeimbangkan karakter sweetness Arabika dan strength Robusta. Sangat serbaguna, enak dinikmati sebagai kopi hitam maupun dengan susu.",
-    origin: "Perfectly Balanced",
-    tag: "Best Seller",
-    offset: false,
-  },
-  {
-    name: "Espresso",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/Espresso.png",
-    link: "https://pesan.kopipurwokerto.com/",
-    desc: "Ekstrak kopi murni yang intens dan praktis. Solusi tepat untuk stok di rumah; tinggal campur dengan susu, air, atau sirup favorit Anda untuk kualitas kafe setiap saat.",
-    description: "Ekstrak kopi murni yang intens dan praktis. Solusi tepat untuk stok di rumah; tinggal campur dengan susu, air, atau sirup favorit Anda untuk kualitas kafe setiap saat.",
-    origin: "Ready to Mix",
-    tag: "Espresso",
-    offset: true,
-  },
-];
-
-const ethos = [
-  {
-    num: "01",
-    title: "Jasa Roasting",
-    tag: "ARTISANAL",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/roasting.webp",
-    body: "Layanan sangrai biji kopi mentah (green bean) dengan pengaturan profil roasting yang disesuaikan, sehingga menghasilkan cita rasa, aroma, dan tingkat kematangan yang optimal sesuai kebutuhan.",
-  },
-  {
-    num: "02",
-    title: "Jasa Sangrai Kopi",
-    tag: "CONSISTENT",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/sangrai.jpg",
-    body: "Solusi roasting kopi yang mudah dijangkau dengan proses yang efisien, menjaga konsistensi kualitas agar setiap batch kopi tetap memiliki rasa yang stabil.",
-  },
-  {
-    num: "03",
-    title: "Jasa Giling Kopi",
-    tag: "PRECISION",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/giling%20kopi.jpeg",
-    body: "Layanan penggilingan biji kopi menjadi bubuk dengan berbagai tingkat kehalusan, mulai dari kasar hingga halus, menyesuaikan dengan metode seduh seperti tubruk, pour over, hingga espresso.",
-  },
-  {
-    num: "04",
-    title: "Kopi Dripbag dan Kopi Sachet",
-    tag: "PRACTICAL",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/dripbag.png",
-    body: "Produk kopi praktis siap seduh yang dirancang untuk kemudahan, tetap menjaga kualitas rasa sehingga bisa dinikmati kapan saja tanpa memerlukan alat seduh khusus.",
-  },
-  {
-    num: "05",
-    title: "Tempat Ngopi Enak Purwokerto",
-    tag: "COZY SPACE",
-    img: "https://raw.githubusercontent.com/razeraf/Nakopi/main/hdtempat.jpg",
-    body: "Tempat yang nyaman untuk menikmati kopi dengan suasana santai, didukung pilihan menu kopi dan non-kopi yang beragam serta cocok untuk bersantai maupun bekerja.",
-  },
-];
-
+// ─── Component ────────────────────────────────────────────────────────────────
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Page() {
+  const [coffees, setCoffees] = useState<any[]>([]);
+  const [ethos, setEthos] = useState<any[]>([]);
+  const [activeEthos, setActiveEthos] = useState<any>(null);
   const [activeNav, setActiveNav] = useState("home");
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(2);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [activeEthos, setActiveEthos] = useState(ethos[0]);
   const [formData, setFormData] = useState({ name: '', message: '' });
   const [loading, setLoading] = useState(false);
+
+  // ─── FETCH DATA (Coffees & Ethos) ───
+  useEffect(() => {
+    const fetchData = async () => {
+      // Ambil data Coffees & Ethos sekaligus
+      const [resCoffees, resEthos] = await Promise.all([
+        supabase.from('coffees').select('*').order('id', { ascending: true }),
+        supabase.from('ethos').select('*').order('num', { ascending: true })
+      ]);
+
+      if (resCoffees.data) {
+        setCoffees(resCoffees.data.map(item => ({
+          ...item,
+          offset: item.offset_value
+        })));
+      }
+
+      if (resEthos.data) {
+        setEthos(resEthos.data);
+        setActiveEthos(resEthos.data[0]);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // ─── SCROLL SPY LOGIC ───
   useEffect(() => {
     const sections = ["home", "biji-kopi", "layanan", "nobi"];
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -70% 0px", // Biar ganti menu pas section sudah lewat dikit
-      threshold: 0,
-    };
-
+    const observerOptions = { root: null, rootMargin: "-20% 0px -70% 0px", threshold: 0 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveNav(entry.target.id);
-        }
+        if (entry.isIntersecting) setActiveNav(entry.target.id);
       });
     }, observerOptions);
 
@@ -161,96 +87,71 @@ export default function Page() {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-
     return () => observer.disconnect();
   }, []);
 
-  // Carousel: hitung posisi relatif tiap item terhadap activeIndex
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("Memulai fetch data dari Supabase..."); // LOG 1
+      const [resCoffees, resEthos] = await Promise.all([
+        supabase.from('coffees').select('*').order('id', { ascending: true }),
+        supabase.from('ethos').select('*').order('num', { ascending: true })
+      ]);
+
+      console.log("Respon Coffees:", resCoffees); // LOG 2
+      console.log("Respon Ethos:", resEthos);     // LOG 3
+
+      if (resCoffees.data) {
+        setCoffees(resCoffees.data.map(item => ({
+          ...item,
+          offset: item.offset_value
+        })));
+      }
+
+      if (resEthos.data) {
+        setEthos(resEthos.data);
+        setActiveEthos(resEthos.data[0]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Carousel Logic
   const getItemStyle = (index: number): CSSProperties => {
     const total = coffees.length;
+    if (total === 0) return {};
     let diff = index - activeIndex;
-    // Wrap around agar selalu ambil jalur terdekat
     if (diff > total / 2) diff -= total;
     if (diff < -total / 2) diff += total;
 
-    if (diff === 0) {
-      return {
-        transform: "translate(-50%, -50%) translateX(0px) scale(1)",
-        zIndex: 10,
-        filter: "blur(0px)",
-        opacity: 1,
-        pointerEvents: "auto",
-      };
-    } else if (diff === -1) {
-      return {
-        transform: "translate(-50%, -50%) translateX(-420px) scale(0.78)",
-        zIndex: 7,
-        filter: "blur(3px)",
-        opacity: 0.65,
-        pointerEvents: "auto",
-      };
-    } else if (diff === 1) {
-      return {
-        transform: "translate(-50%, -50%) translateX(420px) scale(0.78)",
-        zIndex: 7,
-        filter: "blur(3px)",
-        opacity: 0.65,
-        pointerEvents: "auto",
-      };
-    } else if (diff === -2 || diff === total - 2) {
-      return {
-        transform: "translate(-50%, -50%) translateX(-600px) scale(0.56)",
-        zIndex: 4,
-        filter: "blur(7px)",
-        opacity: 0.35,
-        pointerEvents: "auto",
-      };
-    } else if (diff === 2 || diff === -(total - 2)) {
-      return {
-        transform: "translate(-50%, -50%) translateX(600px) scale(0.56)",
-        zIndex: 4,
-        filter: "blur(7px)",
-        opacity: 0.35,
-        pointerEvents: "auto",
-      };
-    } else {
-      return {
-        transform: "translate(-50%, -50%) translateX(0px) scale(0.3)",
-        zIndex: 1,
-        filter: "blur(12px)",
-        opacity: 0,
-        pointerEvents: "none",
-      };
-    }
+    if (diff === 0) return { transform: "translate(-50%, -50%) translateX(0px) scale(1)", zIndex: 10, filter: "blur(0px)", opacity: 1, pointerEvents: "auto" };
+    if (diff === -1) return { transform: "translate(-50%, -50%) translateX(-420px) scale(0.78)", zIndex: 7, filter: "blur(3px)", opacity: 0.65, pointerEvents: "auto" };
+    if (diff === 1) return { transform: "translate(-50%, -50%) translateX(420px) scale(0.78)", zIndex: 7, filter: "blur(3px)", opacity: 0.65, pointerEvents: "auto" };
+    if (diff === -2 || diff === total - 2) return { transform: "translate(-50%, -50%) translateX(-600px) scale(0.56)", zIndex: 4, filter: "blur(7px)", opacity: 0.35, pointerEvents: "auto" };
+    if (diff === 2 || diff === -(total - 2)) return { transform: "translate(-50%, -50%) translateX(600px) scale(0.56)", zIndex: 4, filter: "blur(7px)", opacity: 0.35, pointerEvents: "auto" };
+    return { transform: "translate(-50%, -50%) translateX(0px) scale(0.3)", zIndex: 1, filter: "blur(12px)", opacity: 0, pointerEvents: "none" };
   };
+
+  const handlePrev = () => coffees.length > 0 && setActiveIndex((prev) => (prev - 1 + coffees.length) % coffees.length);
+  const handleNext = () => coffees.length > 0 && setActiveIndex((prev) => (prev + 1) % coffees.length);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setLoading(true);
-  
-  const { error } = await supabase
-    .from('suggestions')
-    .insert([
-      { name: formData.name, message: formData.message }
-    ]);
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.from('suggestions').insert([{ name: formData.name, message: formData.message }]);
+    if (error) alert("Gagal: " + error.message);
+    else { alert("Saran terkirim! 😊"); setFormData({ name: '', message: '' }); }
+    setLoading(false);
+  };
 
-  if (error) {
-    alert("Gagal kirim saran: " + error.message);
-  } else {
-    alert("Saran terkirim! Matur nuwun Kak 😊");
-    setFormData({ name: '', message: '' });
+  // Proteksi loading agar tidak error saat data kosong
+  if (coffees.length === 0 || ethos.length === 0) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: '#fef9f2', color: '#271310' }}>Memuat data Nakopi...</div>;
   }
-  setLoading(false);
-};
-
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + coffees.length) % coffees.length);
-  };
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % coffees.length);
-  };
 
   return (
+    // Bagian return tetap sama menggunakan data dinamis dari state `coffees`
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,800;1,400;1,700;1,800&family=Manrope:wght@300;400;500;700;800&display=swap');
