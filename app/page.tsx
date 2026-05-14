@@ -1140,80 +1140,170 @@ export default function Page() {
         </section>
       </main>
 
-      {/* ── Footer ── */}
-<footer className="footer" style={{ padding: '60px 0 30px 0', background: '#f2ede6' }}>
-  <div className="footer-inner full-desktop-wrap" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-    
-    {/* Alamat */}
-    <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '80px', flex: 1 }}>
-      <div className="footer-brand font-headline" style={{ margin: '0', fontSize: '1.5rem', fontWeight: 'bold', color: '#271310', lineHeight: '1.2' }}>
+{/* ── Footer ── */}
+<footer
+  className="footer"
+  style={{
+    padding: '60px 80px 40px 80px',
+    background: '#f2ede6',
+  }}
+>
+  <div
+    className="footer-inner full-desktop-wrap"
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      gap: '100px',
+      width: '100%',
+    }}
+  >
+
+    {/* LEFT SIDE */}
+    <div
+      style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Judul */}
+      <div
+        className="footer-brand font-headline"
+        style={{
+          fontSize: '1.8rem',
+          fontWeight: 'bold',
+          color: '#271310',
+          marginBottom: '12px',
+        }}
+      >
         Alamat
       </div>
+
+      {/* Alamat */}
       <a
         href="https://www.google.com/maps/search/?api=1&query=Nakopi+Roastery+Purwokerto"
         target="_blank"
         rel="noopener noreferrer"
         className="footer-tagline font-body"
         style={{
-          margin: '4px 0 20px 0',
           textDecoration: 'none',
-          color: 'rgba(39,19,16,0.6)',
-          maxWidth: '300px',
-          lineHeight: '1.4',
-          display: 'block'
+          color: 'rgba(39,19,16,0.7)',
+          fontSize: '1rem',
+          lineHeight: '1.9',
+          maxWidth: '500px',
         }}
       >
-        Jl. KH Agus Salim (selatan Salsa Snack, sebelah Jet Laundry), Karangpucung, Purwokerto 53142
+        Jl. KH Agus Salim (selatan Salsa Snack, sebelah Jet Laundry),
+        <br />
+        Karangpucung, Purwokerto 53142
+        <br />
+        © 2026.
       </a>
+
+      {/* Copyright */}
+      <div
+        className="footer-copy font-label"
+        style={{
+          color: 'rgba(39,19,16,0.5)',
+          fontSize: '0.85rem',
+          letterSpacing: '0.08em',
+          marginTop: '55px',
+        }}
+      >
+      </div>
     </div>
 
-    {/* KOTAK SARAN (Baru) */}
-    <div style={{ flex: 1, padding: '0 40px' }}>
-      <div className="font-headline" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#271310', marginBottom: '15px' }}>
-        Saran & Masukan
+    {/* RIGHT SIDE */}
+    <div
+      style={{
+        width: '100%',
+        maxWidth: '520px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Title */}
+      <div
+        className="font-headline"
+        style={{
+          fontSize: '1.4rem',
+          fontWeight: 'bold',
+          color: '#271310',
+          marginBottom: '18px',
+        }}
+      >
+        Saran &amp; Masukan
       </div>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <input 
-          type="text" 
+
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+        }}
+      >
+        <input
+          type="text"
           placeholder="Nama Kakak"
           value={formData.name}
-          onChange={(e) => setFormData({...formData, name: e.target.value})}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFormData({ ...formData, name: e.target.value })
+          }
           required
-          style={{ padding: '8px', borderRadius: '4px', border: '1px solid rgba(39,19,16,0.2)', background: 'white' }}
+          style={{
+            padding: '12px',
+            borderRadius: '5px',
+            border: '1px solid rgba(39,19,16,0.2)',
+            background: '#fff',
+            fontSize: '1rem',
+            outline: 'none',
+          }}
         />
-        <textarea 
+
+        <textarea
           placeholder="Tulis saran di sini..."
           value={formData.message}
-          onChange={(e) => setFormData({...formData, message: e.target.value})}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+            setFormData({ ...formData, message: e.target.value })
+          }
           required
-          style={{ padding: '8px', borderRadius: '4px', border: '1px solid rgba(39,19,16,0.2)', background: 'white', minHeight: '80px', resize: 'none' }}
+          style={{
+            padding: '12px',
+            borderRadius: '5px',
+            border: '1px solid rgba(39,19,16,0.2)',
+            background: '#fff',
+            minHeight: '110px',
+            resize: 'none',
+            fontSize: '1rem',
+            outline: 'none',
+          }}
         />
-        <button 
-          type="submit" 
+
+        <button
+          type="submit"
           disabled={loading}
-          style={{ 
-            padding: '10px', 
-            background: '#271310', 
-            color: 'white', 
-            border: 'none', 
-            borderRadius: '4px', 
+          style={{
+            padding: '13px',
+            background: '#271310',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
             cursor: 'pointer',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            fontSize: '1rem',
+            transition: '0.3s',
           }}
         >
           {loading ? 'Mengirim...' : 'Kirim Saran'}
         </button>
       </form>
     </div>
-
-    {/* Social & Copyright */}
-    <div className="footer-social" style={{ textAlign: 'right', paddingRight: '80px', flex: 1 }}>
-      <div className="footer-copy font-label" style={{ color: 'rgba(39,19,16,0.5)', fontSize: '0.8rem', letterSpacing: '0.1em' }}>
-        © ARKADIA.
-      </div>
-    </div>
   </div>
 </footer>
+
     </>
   );
 }
